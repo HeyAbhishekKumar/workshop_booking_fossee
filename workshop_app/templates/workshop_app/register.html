@@ -1,35 +1,131 @@
 {% extends 'workshop_app/base.html' %}
+{% load static %}
+{% load custom_filters %}
 
-	{% block title %}
-		Register
-	{% endblock %}
+{% block title %}Sign Up - Workshop Booking{% endblock %}
+
+{% block extra-custom-scripts %}
+<link rel="stylesheet" href="{% static 'workshop_app/css/auth.css' %}">
+<style>
+    /* Hide the default navbar and footer for registration page to match sample */
+    nav.navbar, footer.footer { display: none !important; }
+    .base-content { padding: 0 !important; }
+    
+    .auth-card {
+        max-width: 600px; /* Slightly wider for the larger form */
+    }
+</style>
+{% endblock %}
 
 {% block content %}
+<div class="auth-wrapper">
+    <div class="auth-header"></div>
+    
+    <div class="auth-container">
+        <div class="auth-content-box">
+            <div class="auth-title-section">
+                <h1>Sign up now to access your personal account</h1>
+                <p>Sign up to access your account and exclusive featured.</p>
+            </div>
 
-	<style type="text/css">
-    	label.required::after {
-    	content: "*";
-    	color: red;
-		}
+            <div class="auth-card">
+                <div class="auth-tabs">
+                    <a href="{% url 'login' %}" class="auth-tab">Sign In</a>
+                    <a href="{% url 'workshop_app:register' %}" class="auth-tab active">Sign Up</a>
+                </div>
 
-		.errorlist {
-      color: red;
-    }
-	</style>
+                <form method="post" action="{% url 'workshop_app:register' %}">
+                    {% csrf_token %}
+                    
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        Please correct the errors below.
+                    </div>
+                    {% endif %}
 
-	<div class="container" >
-		<br>
-		<h3>Coordinator Registration Form</h3>
-		<br>
-		<form action="" method="post">
-			{% csrf_token %}
-				<table class="table table-bordered">
-					{{ form.as_table }}
-				</table>
+                    <div class="register-form-grid">
+                        <div class="form-group">
+                            <label class="required" for="id_username">Username</label>
+                            {{ form.username|add_class:"form-control" }}
+                            {% if form.username.errors %}<div class="errorlist">{{ form.username.errors.0 }}</div>{% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="id_email">Email</label>
+                            {{ form.email|add_class:"form-control" }}
+                            {% if form.email.errors %}<div class="errorlist">{{ form.email.errors.0 }}</div>{% endif %}
+                        </div>
+                    </div>
 
-				<button class="btn btn-primary" type="submit">Register</button>
-		</form><br>
-		<!-- Activate when Instructor registeration starts -->
-		<br>
-	</div>
+                    <div class="register-form-grid">
+                        <div class="form-group">
+                            <label class="required" for="id_password">Password</label>
+                            {{ form.password|add_class:"form-control" }}
+                            {% if form.password.errors %}<div class="errorlist">{{ form.password.errors.0 }}</div>{% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="id_confirm_password">Confirm Password</label>
+                            {{ form.confirm_password|add_class:"form-control" }}
+                            {% if form.confirm_password.errors %}<div class="errorlist">{{ form.confirm_password.errors.0 }}</div>{% endif %}
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 80px 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label class="required" for="id_title">Title</label>
+                            {{ form.title|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="id_first_name">First Name</label>
+                            {{ form.first_name|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="id_last_name">Last Name</label>
+                            {{ form.last_name|add_class:"form-control" }}
+                        </div>
+                    </div>
+
+                    <div class="register-form-grid">
+                        <div class="form-group">
+                            <label class="required" for="id_phone_number">Phone Number</label>
+                            {{ form.phone_number|add_class:"form-control" }}
+                            {% if form.phone_number.errors %}<div class="errorlist">{{ form.phone_number.errors.0 }}</div>{% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="id_institute">Institute</label>
+                            {{ form.institute|add_class:"form-control" }}
+                        </div>
+                    </div>
+
+                    <div class="register-form-grid">
+                        <div class="form-group">
+                            <label class="required" for="id_department">Department</label>
+                            {{ form.department|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="id_location">Location (City)</label>
+                            {{ form.location|add_class:"form-control" }}
+                        </div>
+                    </div>
+
+                    <div class="register-form-grid" style="grid-template-columns: 1fr 1fr;">
+                        <div class="form-group">
+                            <label class="required" for="id_state">State</label>
+                            {{ form.state|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="id_how_did_you_hear_about_us">Source</label>
+                            {{ form.how_did_you_hear_about_us|add_class:"form-control" }}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-auth">Register</button>
+                    
+                    <div class="auth-footer">
+                        Already have an account? <a href="{% url 'login' %}">Sign In</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
