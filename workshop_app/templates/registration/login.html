@@ -21,16 +21,12 @@
 <div class="auth-wrapper">
     <div class="auth-header"></div>
     
-    <div class="auth-nav">
-        <a href="/" class="auth-nav-link">Home</a>
-        <a href="{% url 'statistics_app:public' %}" class="auth-nav-link">Workshop Statistics</a>
-    </div>
-
-    <div class="auth-container" style="padding-top: 100px;">
+    <div class="auth-container" style="padding-top: 80px;">
         <div class="auth-content-box">
             <div class="auth-title-section">
                 <h1>FOSSEE Workshops</h1>
                 <p>Developed by FOSSEE group, IIT Bombay</p>
+                <a href="{% url 'statistics_app:public' %}" class="btn-pill">Workshop Statistics</a>
             </div>
 
             <div class="auth-card">
