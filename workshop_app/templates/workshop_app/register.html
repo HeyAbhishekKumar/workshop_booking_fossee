@@ -7,12 +7,8 @@
 {% block extra-custom-scripts %}
 <link rel="stylesheet" href="{% static 'workshop_app/css/auth.css' %}">
 <style>
-    /* Integrate navbar and footer with redesign */
-    nav.navbar { 
-        background: transparent !important; 
-        box-shadow: none !important;
-        position: absolute !important;
-    }
+    /* Fully override base navbar/footer behavior */
+    nav.navbar { display: none !important; }
     .base-content { padding: 0 !important; }
     footer.footer {
         position: relative !important;
@@ -28,6 +24,11 @@
 <div class="auth-wrapper">
     <div class="auth-header"></div>
     
+    <div class="auth-nav">
+        <a href="/" class="auth-nav-link">Home</a>
+        <a href="{% url 'statistics_app:public' %}" class="auth-nav-link">Workshop Statistics</a>
+    </div>
+
     <div class="auth-container" style="padding-top: 100px;">
         <div class="auth-content-box">
             <div class="auth-title-section">
