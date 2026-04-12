@@ -7,9 +7,17 @@
 {% block extra-custom-scripts %}
 <link rel="stylesheet" href="{% static 'workshop_app/css/auth.css' %}">
 <style>
-    /* Hide the default navbar and footer for login page to match sample */
-    nav.navbar, footer.footer { display: none !important; }
+    /* Integrate navbar and footer with redesign */
+    nav.navbar { 
+        background: transparent !important; 
+        box-shadow: none !important;
+        position: absolute !important;
+    }
     .base-content { padding: 0 !important; }
+    footer.footer {
+        position: relative !important;
+        margin-top: 20px;
+    }
 </style>
 {% endblock %}
 
@@ -17,11 +25,11 @@
 <div class="auth-wrapper">
     <div class="auth-header"></div>
     
-    <div class="auth-container">
+    <div class="auth-container" style="padding-top: 100px;">
         <div class="auth-content-box">
             <div class="auth-title-section">
-                <h1>Go ahead and complete your account and setup</h1>
-                <p>Create your account and simplify your workflow instantly.</p>
+                <h1>FOSSEE Workshops</h1>
+                <p>Developed by FOSSEE group, IIT Bombay</p>
             </div>
 
             <div class="auth-card">
@@ -65,19 +73,11 @@
                     </div>
 
                     <button type="submit" class="btn-auth">Sign In</button>
-                </form>
-
-                <div class="social-login">
-                    <div class="social-divider">Or Login With</div>
-                    <div class="social-buttons">
-                        <button class="social-btn">
-                            <img src="https://www.google.com/favicon.ico" width="16" height="16" alt="Google"> Google
-                        </button>
-                        <button class="social-btn">
-                            <img src="https://www.apple.com/favicon.ico" width="16" height="16" alt="Apple"> Apple
-                        </button>
+                    
+                    <div class="auth-footer">
+                        New around here? <a href="{% url 'workshop_app:register' %}">Sign Up</a>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
