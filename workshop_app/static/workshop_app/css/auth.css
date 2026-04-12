@@ -200,15 +200,15 @@ body {
     gap: 15px;
 }
 
-/* Custom Auth Page Navigation Pill */
+/* Custom Auth Page Navigation Button */
 .btn-pill {
     display: inline-block;
-    padding: 8px 20px;
+    padding: 8px 16px;
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 50px;
+    border-radius: 8px; /* More squarish */
     color: white;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
