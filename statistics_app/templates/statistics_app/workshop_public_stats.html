@@ -1,100 +1,287 @@
 {% extends 'workshop_app/base.html' %}
+{% load static %}
+{% load custom_filters %}
 
-{% block title %} Statistics {% endblock %}
+{% block title %} Workshop Statistics {% endblock %}
+
+{% block extra-custom-scripts %}
+<link rel="stylesheet" href="{% static 'workshop_app/css/auth.css' %}?v=2.0">
+<style>
+    :root {
+        --glass-bg-dark: rgba(255, 255, 255, 0.4);
+    }
+    .stats-wrapper {
+        min-height: 100vh;
+        background: var(--bg-gradient);
+        padding: 100px 20px 60px 20px; /* Increased top padding for fixed navbar */
+        color: white;
+    }
+    .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--border-radius);
+        padding: 30px;
+        box-shadow: var(--shadow);
+        color: var(--text-color);
+        margin-bottom: 30px;
+    }
+    .filter-section h3 {
+        font-weight: 800;
+        letter-spacing: -0.05em;
+        margin-bottom: 25px;
+        color: var(--text-color);
+    }
+    .form-group-custom {
+        margin-bottom: 1.5rem;
+    }
+    .form-group-custom label {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+    .form-group-custom input, .form-group-custom select {
+        width: 100%;
+        height: 50px;
+        border-radius: 15px;
+        border: 1px solid rgba(0,0,0,0.1);
+        padding: 0 15px;
+        background: rgba(255,255,255,0.7);
+    }
+    .stats-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px;
+    }
+    .stats-table thead th {
+        border: none;
+        color: var(--text-muted);
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        padding: 15px;
+    }
+    .stats-table tbody tr {
+        background: rgba(255, 255, 255, 0.5);
+        transition: all 0.3s ease;
+    }
+    .stats-table tbody tr:hover {
+        background: rgba(255, 255, 255, 0.8);
+        transform: scale(1.01);
+    }
+    .stats-table td {
+        padding: 18px 15px;
+        border: none;
+        font-weight: 500;
+    }
+    .stats-table td:first-child { border-radius: 15px 0 0 15px; }
+    .stats-table td:last-child { border-radius: 0 15px 15px 0; }
+    
+    .btn-action {
+        height: 48px;
+        border-radius: 12px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+    .btn-view { background: var(--bg-gradient); color: white; box-shadow: 0 10px 20px rgba(0, 149, 255, 0.3); }
+    .btn-download { background: #22c55e; color: white; box-shadow: 0 10px 20px rgba(34, 197, 94, 0.2); }
+    .btn-clear { background: rgba(0,0,0,0.05); color: var(--text-color); border: 1px solid rgba(0,0,0,0.1); text-decoration: none; }
+    
+    .btn-graph {
+        background: white;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        border-radius: 50px;
+        padding: 10px 25px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+    .btn-graph:hover {
+        background: var(--primary-color);
+        color: white;
+        box-shadow: 0 8px 15px rgba(0, 149, 255, 0.2);
+        animation: magnetic-wiggle 0.4s ease-in-out infinite;
+    }
+    .page-item .page-link {
+        background: rgba(255,255,255,0.6) !important;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.3) !important;
+        color: var(--text-color) !important;
+        margin: 0 4px;
+        border-radius: 10px !important;
+        font-weight: 700;
+        transition: all 0.3s ease;
+    }
+    .page-item.active .page-link {
+        background: var(--bg-gradient) !important;
+        color: white !important;
+        border: none !important;
+    }
+    .page-item:not(.active) .page-link:hover {
+        background: rgba(255,255,255,0.9) !important;
+        transform: translateY(-2px);
+    }
+    /* Grid-perfect alignment for Home button */
+    nav.navbar .container-fluid {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+    
+    .navbar .container-fluid > .d-flex {
+        width: 25% !important; /* Perfect match for col-lg-3 grid */
+        padding-left: 15px !important; /* Matches column gutter */
+        padding-right: 15px !important;
+        display: flex !important;
+    }
+
+    .nav-pill-btn {
+        width: 100% !important;
+        text-align: center;
+        justify-content: center;
+        display: flex !important;
+        max-width: none !important;
+    }
+
+    .base-content { padding: 0 !important; }
+
+    @media (max-width: 991px) {
+        .nav-pill-btn { width: auto !important; max-width: none !important; }
+        .stats-wrapper { padding-top: 100px; }
+        .navbar .container-fluid > .d-flex { width: auto !important; padding: 0 !important; }
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3">
-            <form method="GET">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h3><u>Filters</u></h3>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="{% url 'statistics_app:public' %}" class="btn btn-outline-info">
-                                    <i class="fa fa-times"></i>&nbsp;Clear
-                                </a>
-                            </div>
+<div class="stats-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Filters -->
+            <div class="col-lg-3">
+                <form method="GET" action="{% url 'statistics_app:public' %}">
+                    <div class="glass-card filter-section">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="m-0">Filters</h3>
+                            <a href="{% url 'statistics_app:public' %}" class="btn-action btn-clear px-3">
+                                <span class="material-icons">refresh</span> Clear
+                            </a>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div>From date: {{form.from_date}}</div>
-                        <div>To date: {{form.to_date}}</div>
-                        <div>Workshop: {{form.workshop_type}}</div>
-                        <div>State: {{form.state}}</div>
-                        <div>{{form.sort.help_text}}: {{form.sort}}</div>
+                        
+                        <div class="form-group-custom">
+                            <label>From Date</label>
+                            {{ form.from_date }}
+                        </div>
+                        <div class="form-group-custom">
+                            <label>To Date</label>
+                            {{ form.to_date }}
+                        </div>
+                        <div class="form-group-custom">
+                            <label>Workshop Type</label>
+                            {{ form.workshop_type }}
+                        </div>
+                        <div class="form-group-custom">
+                            <label>State</label>
+                            {{ form.state }}
+                        </div>
+                        <div class="form-group-custom">
+                            <label>Sort By</label>
+                            {{ form.sort }}
+                        </div>
+                        
                         {% if request.user.is_authenticated %}
-                        <div>{{form.show_workshops.help_text}}: {{form.show_workshops}}</div>
+                        <div class="form-group-custom d-flex align-items-center gap-2">
+                             {{ form.show_workshops }}
+                             <label class="m-0" style="display:inline;">Show My Workshops</label>
+                        </div>
                         {% endif %}
-                        <br>
-                        <div class="row justify-content-center">
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fa fa-eye"></i>&nbsp;View
-                                </button>
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-info" name="download" value="download">
-                                    <i class="fa fa-download"></i>&nbsp;Download
-                                </button>
-                            </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn-action btn-view w-100 mb-3">
+                                <span class="material-icons">visibility</span> View Statistics
+                            </button>
+                            <button type="submit" class="btn-action btn-download w-100" name="download" value="download">
+                                <span class="material-icons">cloud_download</span> Download CSV
+                            </button>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col-md-6">
-                    {% include "statistics_app/paginator.html" %}
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-info" id="state_graph">
-                        <i class="fa fa-bar-chart"></i>&nbsp;State chart
-                    </button>
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-info" id="type_graph">
-                        <i class="fa fa-bar-chart"></i>&nbsp;Workshops chart
-                    </button>
+                </form>
+            </div>
+
+            <!-- Content Area -->
+            <div class="col-lg-9">
+                <div class="glass-card">
+                    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                        <div class="pagination-container">
+                            {% include "statistics_app/paginator.html" %}
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn-graph" id="state_graph">
+                                <span class="material-icons">pie_chart</span> State Chart
+                            </button>
+                            <button class="btn-graph" id="type_graph">
+                                <span class="material-icons">bar_chart</span> Type Chart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Coordinator</th>
+                                    <th>Institute</th>
+                                    <th>Instructor</th>
+                                    <th>Workshop</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% csrf_token %}
+                                {% for workshop in objects %}
+                                <tr>
+                                    <td>{{ forloop.counter0|add:objects.start_index}}</td>
+                                    <td><strong>{{ workshop.coordinator.get_full_name|title }}</strong></td>
+                                    <td>{{ workshop.coordinator.profile.institute|title }}</td>
+                                    <td>{{ workshop.instructor.get_full_name|title }}</td>
+                                    <td><span class="badge badge-light" style="padding: 6px 10px; border-radius: 8px;">{{ workshop.workshop_type.name }}</span></td>
+                                    <td>{{ workshop.date|date:"d M Y" }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="6" class="text-center py-5">No workshops found. Adjust filters to search.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-4">
+                        {% include "statistics_app/paginator.html" %}
+                    </div>
                 </div>
             </div>
-            <table class="table table-responsive-sm">
-                <thead>
-                    <tr>
-                        <th>Sr No.</th>
-                        <th>Coordinator Name</th>
-                        <th>Institute Name</th>
-                        <th>Instructor Name</th>
-                        <th>Workshop Name</th>
-                        <th>Workshop Date</th>
-                    </tr>
-                </thead>
-                {% csrf_token %}
-                {% for workshop in objects %}
-                    <tbody>
-                        <tr>
-                            <td>{{ forloop.counter0|add:objects.start_index}}</td>
-                            <td>{{ workshop.coordinator.get_full_name | capfirst }}</td>
-                            <td>{{ workshop.coordinator.profile.institute | capfirst }}</td>
-                            <td>{{ workshop.instructor.get_full_name | capfirst }}</td>
-                            <td>{{ workshop.workshop_type.name }}</td>
-                            <td>{{ workshop.date | date}}</td>
-                        </tr>
-                    </tbody>
-                {% endfor %}
-            </table>
-            {% include "statistics_app/paginator.html" %}
         </div>
     </div>
 </div>
 
-<!-- The Modal -->
-<div id="dialog" title="Workshops Statistics">
-    <canvas id="myChart"></canvas>
+<!-- Modal for Graphs -->
+<div id="dialog" title="Data Analytics" style="display:none;">
+    <div style="padding: 10px;">
+        <canvas id="myChart"></canvas>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -103,38 +290,48 @@
     var type_labels = {{ws_type|safe}};
     var type_data = {{ws_type_count|safe}};
     var chart;
-    $("#state_graph").on("click", function() {
-        show_graph(state_labels, state_data, "State wise workshops");
+    
+    document.getElementById("state_graph").addEventListener("click", function() {
+        show_graph(state_labels, state_data, "Workshops by State");
     });
-    $("#type_graph").on("click", function() {
-        show_graph(type_labels, type_data, "Type wise workshops");
+    document.getElementById("type_graph").addEventListener("click", function() {
+        show_graph(type_labels, type_data, "Workshops by Type");
     });
 
-    function show_graph(labels, data, graph_name, chart_name) {
+    function show_graph(labels, data, graph_name) {
         var ctx = document.getElementById('myChart').getContext('2d');
         if(chart) chart.destroy();
         chart = new Chart(ctx, {
-            // The type of chart we want to create
             type: 'bar',
-
-            // The data for our dataset
             data: {
                 labels: labels,
                 datasets: [{
-                    data: data,
                     label: graph_name,
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
+                    data: data,
+                    backgroundColor: 'rgba(0, 149, 255, 0.7)',
+                    borderColor: 'rgba(0, 149, 255, 1)',
+                    borderWidth: 1
                 }]
             },
-            // Configuration options go here
-            options: {}
+            options: {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
         });
+        
         $("#dialog").dialog({
-            width: 900,
-            height: 500
+            width: Math.min(window.innerWidth * 0.9, 850),
+            height: 480,
+            modal: true,
+            resizable: false,
+            draggable: true
         });
     }
 </script>
-
 {% endblock %}
