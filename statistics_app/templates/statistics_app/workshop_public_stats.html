@@ -133,17 +133,15 @@
         background: rgba(255,255,255,0.9) !important;
         transform: translateY(-2px);
     }
-    /* Grid-perfect alignment for Home button */
+    /* Align Home button to Filters container */
     nav.navbar .container-fluid {
-        padding-left: 20px !important;
+        padding-left: 45px !important; /* Shifted right to match col-lg-3 grid precisely */
         padding-right: 20px !important;
     }
     
     .navbar .container-fluid > .d-flex {
-        width: 25% !important; /* Perfect match for col-lg-3 grid */
-        padding-left: 15px !important; /* Matches column gutter */
-        padding-right: 15px !important;
-        display: flex !important;
+        width: 100%;
+        max-width: 280px; /* Aligns with sidebar visual width */
     }
 
     .nav-pill-btn {
@@ -151,15 +149,13 @@
         text-align: center;
         justify-content: center;
         display: flex !important;
-        max-width: none !important;
     }
 
     .base-content { padding: 0 !important; }
 
     @media (max-width: 991px) {
-        .nav-pill-btn { width: auto !important; max-width: none !important; }
+        .nav-pill-btn { width: auto; max-width: none; }
         .stats-wrapper { padding-top: 100px; }
-        .navbar .container-fluid > .d-flex { width: auto !important; padding: 0 !important; }
     }
 </style>
 {% endblock %}

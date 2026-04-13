@@ -141,14 +141,22 @@ def user_register(request):
         if form.is_valid():
             username, password, key = form.save()
             new_user = authenticate(username=username, password=password)
-            login(request, new_user)
-            user_position = request.user.profile.position
-            send_email(
-                request, call_on='Registration',
-                user_position=user_position,
-                key=key
-            )
-            return render(request, 'workshop_app/activation.html')
+            if new_user is not None:
+                login(request, new_user)
+                try:
+                    user_position = request.user.profile.position
+                    send_email(
+                        request, call_on='Registration',
+                        user_position=user_position,
+                        key=key
+                    )
+                except Exception as e:
+                    # Log error but don't break the registration flow
+                    print(f"Email error: {e}")
+                return render(request, 'workshop_app/activation.html')
+            else:
+                # Fallback if authentication fails after creation
+                return redirect('login')
         else:
             if request.user.is_authenticated:
                 return redirect('workshop:view_profile')
