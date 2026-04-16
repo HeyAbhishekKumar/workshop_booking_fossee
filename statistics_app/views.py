@@ -111,7 +111,7 @@ def team_stats(request, team_id=None):
         team = teams.get(id=team_id)
     else:
         team = teams.first()
-    if not team.members.filter(user_id=user.id).exists():
+    if team is None or not team.members.filter(user_id=user.id).exists():
         messages.add_message(
             request, messages.INFO, "You are not added to the team"
         )

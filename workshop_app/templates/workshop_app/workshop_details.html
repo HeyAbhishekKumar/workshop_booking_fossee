@@ -5,8 +5,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <table class="table table-bordered">
+    <div class="container app-container">
+        <div class="glass-panel">
+        <h3 class="mb-5 text-center gradient-text" style="font-size: 2.5rem; letter-spacing: -0.04em;">Workshop Details</h3>
+        <div class="table-responsive">
+        <table class="table-glass">
             <tr>
                 <th><label for="id_first_name">Workshop Type :</label></th>
                 <td><label for="id_first_name"><a
@@ -39,9 +42,11 @@
                 </tr>
             {% endif %}
         </table>
-        <br>
+        </div>
+        </div>
+
         <div class="container">
-            <div class="card mt-2 mb-5">
+            <div class="glass-panel mt-2 mb-5">
                 <form method="post">
                     <div class="card-header">
                         <div class="row">
@@ -55,17 +60,18 @@
                     <div class="card-body">
                         {{ form.comment }}
                     </div>
-                    <button type="submit" class="float-right btn btn-primary btn-md m-2">Post</button>
+                    <button type="submit" class="float-right btn btn-auth" style="width: auto; padding: 0 30px; height: 50px;">Post</button>
+                    <div class="clearfix"></div>
                 </form>
             </div>
             <br><br>
-            <h2 class="text-center">Comments</h2>
+            <h2 class="text-center gradient-text" style="font-size: 2.2rem; letter-spacing: -0.03em;">Comments</h2>
             <br>
             {% for comment in workshop_comments %}
-                <div class="card my-2">
-                    <div class="card-header">
+                <div class="glass-panel my-2" style="padding: 20px;">
+                    <div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px;">
                         <div class="row">
-                            <div class="ml-3 font-weight-bold"><a
+                            <div class="ml-3 font-weight-bold"><a style="color: var(--accent-blue);"
                                     href="{% url 'workshop_app:view_profile' comment.author_id %}">{{ comment.author }}</a></div>
                             {% if not comment.public %}
                                 <div class="ml-1"><span class="badge badge-dark">Hidden</span></div>
@@ -73,8 +79,8 @@
                             <div class="ml-3 text-muted">{{ comment.created_date }}</div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <p>{{ comment.comment }}</p>
+                    <div>
+                        <p style="color: white;">{{ comment.comment }}</p>
                     </div>
                 </div>
             {% endfor %}

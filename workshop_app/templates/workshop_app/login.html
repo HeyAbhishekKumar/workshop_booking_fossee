@@ -5,7 +5,7 @@
 {% block title %}Sign In - Workshop Booking{% endblock %}
 
 {% block extra-custom-scripts %}
-<link rel="stylesheet" href="{% static 'workshop_app/css/auth.css' %}?v=2.0">
+<link rel="stylesheet" href="{% static 'workshop_app/css/auth.css' %}?v=6.0">
 <style>
     /* Fully override base navbar/footer behavior */
     nav.navbar { display: none !important; }
@@ -30,8 +30,8 @@
     <div class="auth-container" style="padding-top: 80px;">
         <div class="auth-content-box">
             <div class="auth-title-section">
-                <h1>FOSSEE Workshops</h1>
-                <p>Developed by FOSSEE group, IIT Bombay</p>
+                <h1>FOSSEE <span class="gradient-text">Workshops</span></h1>
+                <p>Developing Tomorrow's Technology Today</p>
                 <a href="{% url 'statistics_app:public' %}" class="btn-pill">Check Workshop Statistics</a>
             </div>
 

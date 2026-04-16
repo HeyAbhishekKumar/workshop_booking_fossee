@@ -58,41 +58,41 @@
     }
     </style>
 
-    <div class="container" align="center">
-        <div class="alert alert-info">
+    <div class="container app-container" align="center">
+        <div class="alert alert-info glass-panel" style="background-color: rgba(116, 69, 251, 0.15); border-left: 4px solid var(--primary-color); padding: 16px; border-radius: 18px; color: #d4c5f9;">
             Note: Before proposing the workshop, please check about the workshop in the
             <strong>Workshop Types</strong> section
         </div>
         <br><br>
         <div class="col-md-6 col-md-offset-6">
-            <div class="card border-primary">
-                <div class="card-header">
-                    <h3>Propose Workshop</h3>
-                </div>
+            <div class="auth-card" style="margin-top: 20px;">
+                <h3 class="text-center mb-4" style="color: white; font-weight: 800;">Propose Workshop</h3>
                 <div class="card-body">
                     <div class="form-group">
                         <form method="post">
                             {% csrf_token %}
                             <br/>
-                            {{ form.workshop_type }}
-                            <br>
-                            {{ form.date }}
-                            <br>
-                            {{ form.tnc_accepted }} I accept the
-                            <a href="#" id="disp_tnc" data-toggle="modal"
-                            data-target="#exampleModalCenter">
-                                terms and conditions
-                            </a>
-                            <br>
+                            <div class="form-group">
+                                {{ form.workshop_type }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.date }}
+                            </div>
+                            <div style="color: white; margin-bottom: 20px;">
+                                {{ form.tnc_accepted }} I accept the
+                                <a href="#" id="disp_tnc" data-toggle="modal"
+                                data-target="#exampleModalCenter" style="color: var(--primary-light);">
+                                    terms and conditions
+                                </a>
+                            </div>
                             {% if form.errors %}
-                                <br>
-                                <div style="text-align: left; border: 1px solid red; padding-top: 5px">
-                                    <h5 style="text-align: center; color: red; font-weight: bolder">Errors</h5>
+                                <div class="alert alert-danger text-left">
+                                    <h5 style="color: #fca5a5; font-weight: bolder">Errors</h5>
                                     {{ form.errors }}
                                 </div>
                             {% endif %}
                             <br>
-                            <button class="btn btn-success" type="submit">Submit</button>
+                            <button class="btn btn-auth" type="submit">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -105,14 +105,14 @@
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-content glass-panel" style="padding: 20px;">
+                <div class="modal-header" style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="color: white; font-weight: 700;">Terms and Conditions</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="color: var(--text-muted);">
 
                 </div>
             </div>

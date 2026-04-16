@@ -39,7 +39,9 @@ __credits__ = ["Mahesh Gudi", "Aditya P.", "Ankit Javalkar",
 # Helper functions
 
 def is_email_checked(user):
-    return user.profile.is_email_verified
+    if hasattr(user, 'profile'):
+        return user.profile.is_email_verified
+    return False
 
 
 def is_instructor(user):
@@ -486,7 +488,7 @@ def view_own_profile(request):
     """User can view own profile """
     user = request.user
     if user.is_superuser:
-        return redirect("admin")
+        return redirect("/admin/")
     profile = user.profile
     if request.method == 'POST':
         form = ProfileForm(request.POST, user=user, instance=profile)

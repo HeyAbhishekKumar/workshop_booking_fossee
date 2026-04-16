@@ -1,18 +1,39 @@
 {% extends 'workshop_app/base.html' %}
 
-	{% block title %}
-		Logged out
-	{% endblock %}
+{% block title %} Logged Out {% endblock %}
 
+{% block content %}
+<div class="container app-container">
+    <div class="auth-card text-center" style="margin: 0 auto; max-width: 500px; padding: 60px 40px;">
+        <div class="mb-4">
+            <span class="material-icons" style="font-size: 80px; color: var(--accent-blue); opacity: 0.8;">
+                check_circle_outline
+            </span>
+        </div>
+        
+        <h2 class="gradient-text mb-4" style="font-size: 2.2rem; letter-spacing: -0.02em;">Goodbye!</h2>
+        <p class="text-white mb-5" style="font-size: 1.1rem; opacity: 0.8;">You have been logged out successfully.</p>
+        
+        <a href="/" class="btn btn-auth" style="display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none;">
+            <span class="material-icons">login</span>
+            Sign In Again
+        </a>
+        
+        <div class="mt-4">
+            <a href="https://fossee.in" class="btn-pill" style="padding: 10px 30px; font-size: 0.9rem;">Visit FOSSEE</a>
+        </div>
+    </div>
+</div>
 
-	{% block content %}
-		<div class="container" align="center">
-			<br>
-			<h3>You have logged out successfully.</h3>
-			<h4>If you want to login again please
-				<a href="/">click here</a>
-			</h4>
-			<br>
-		</div>
-
-	{% endblock %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof toastr !== 'undefined') {
+            toastr.info('You have securely logged out.', 'Session Ended', {
+                positionClass: 'toast-top-center',
+                timeOut: 5000,
+                progressBar: true
+            });
+        }
+    });
+</script>
+{% endblock %}

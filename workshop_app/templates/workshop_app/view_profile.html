@@ -5,9 +5,12 @@
 {% csrf_token %}
 {% block content %}
 
-    <div class="container">
-        {% if Workshops %}
-            <table class="table table-bordered">
+    <div class="container app-container">
+        {% if Workshops != None %}
+            <div class="glass-panel">
+            <h3 class="mb-5 text-center gradient-text" style="font-size: 2.5rem; letter-spacing: -0.04em;">User Profile</h3>
+            <div class="table-responsive">
+            <table class="table-glass">
                 <tr>
                     <th><label for="id_first_name"><h5>First name:</h5></label></th>
                     <th><label for="id_first_name"><h5>{{ coordinator_profile.user.first_name }}</h5></label></th>
@@ -42,11 +45,13 @@
                     <th><label for="id_position"><h5>{{ coordinator_profile.user.profile.position }}</h5></label></th>
                 </tr>
             </table>
-            <br>
+            </div>
+            </div>
 
-            <div class="container">
-            <h2>Workshop Details</h2>
-            <table class="table table-bordered">
+            <div class="glass-panel">
+            <h3 class="mb-5 text-center gradient-text" style="font-size: 2.5rem; letter-spacing: -0.04em;">Workshop Details</h3>
+            <div class="table-responsive">
+            <table class="table-glass">
             <tr>
                 <th><label for="id_instructor_name">Instructor name</label></th>
                 <th><label for="id_workshop_date">Workshop date</label></th>
@@ -74,27 +79,16 @@
             {% endfor %}
             </table>
             </div>
-            <br><br>
+            </div>
         {% else %}
-            <form action="" method="post">
-              {% csrf_token %}
-                <div class="row justify-content-center form-group">
-                    <div class="col-md-6">
-                    <form action="" method="post">
-                        <fieldset>
-                            {% csrf_token %}
-                            {% if form.errors %}
-                                {% for field in form %}
-                                    {% for error in field.errors %}
-                                        <div class="alert alert-dismissible alert-danger">
-                                            <button type="button" class="close" data-dismiss="alert">
-                                                <i class="fa fa-close"></i>
-                                            </button>
-                                            <strong>{{field.label}} : {{ error|escape }}</strong>
-                                        </div>
-                                    {% endfor %}
-                                {% endfor %}
-                                {% for error in form.non_field_errors %}
+            <div class="auth-card" style="margin-top: 20px;">
+                <h2 class="text-center mb-4 gradient-text" style="font-size: 2.5rem; letter-spacing: -0.04em;">Edit Profile</h2>
+                <form action="" method="post">
+                    <fieldset>
+                        {% csrf_token %}
+                        {% if form.errors %}
+                            {% for field in form %}
+                                {% for error in field.errors %}
                                     <div class="alert alert-dismissible alert-danger">
                                         <button type="button" class="close" data-dismiss="alert">
                                             <i class="fa fa-close"></i>
@@ -102,28 +96,73 @@
                                         <strong>{{field.label}} : {{ error|escape }}</strong>
                                     </div>
                                 {% endfor %}
-                            {% endif %}
-                            <table class="table table-responsive-sm">
-                                <tr><td>{{form.title}}</td></tr>
-                                <tr><td>{{form.first_name}}</td></tr>
-                                <tr><td>{{form.last_name}}</td></tr>
-                                <tr><td>{{form.phone_number}}</td></tr>
-                                <tr><td>{{form.institute}}</td></tr>
-                                <tr><td>{{form.department}}</td></tr>
-                                <tr><td>{{form.position}}</td></tr>
-                                <tr><td>{{form.location}}</td></tr>
-                                <tr><td>{{form.state}}</td></tr>
-                            </table>
-                            <br>
-                        </fieldset>
-                        <button class="btn btn-success btn-lg" type="submit">
-                            <i class="fa fa-pencil-square-o"></i>&nbsp;Update</button>
-                        <a href="{% url 'workshop_app:index' %}" class="btn btn-primary btn-lg">Cancel
-                        </a>
-                    </form>
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <div class="alert alert-dismissible alert-danger">
+                                    <button type="button" class="close" data-dismiss="alert">
+                                        <i class="fa fa-close"></i>
+                                    </button>
+                                    <strong>{{field.label}} : {{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <div class="register-form-grid">
+                            <div class="form-group">
+                                <label>Honorific / Title</label>
+                                {{form.title}}
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                {{form.phone_number}}
+                            </div>
+                        </div>
+
+                        <div class="register-form-grid">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                {{form.first_name}}
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                {{form.last_name}}
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 10px;">
+                            <label>Institute</label>
+                            {{form.institute}}
+                        </div>
+
+                        <div class="register-form-grid">
+                            <div class="form-group">
+                                <label>Department</label>
+                                {{form.department}}
+                            </div>
+                            <div class="form-group">
+                                <label>Position</label>
+                                {{form.position}}
+                            </div>
+                        </div>
+
+                        <div class="register-form-grid">
+                            <div class="form-group">
+                                <label>Location / City</label>
+                                {{form.location}}
+                            </div>
+                            <div class="form-group">
+                                <label>State</label>
+                                {{form.state}}
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <button class="btn btn-auth mt-2" type="submit">Update Profile</button>
+                    <div class="text-center mt-4">
+                        <a href="{% url 'workshop_app:index' %}" class="btn-pill" style="padding: 12px 40px;">Cancel</a>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         {% endif %}
     </div>
 {% endblock %}

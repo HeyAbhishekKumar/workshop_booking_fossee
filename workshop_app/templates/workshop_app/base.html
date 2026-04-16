@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{% static 'workshop_app/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'workshop_app/css/toastr.min.css' %}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'workshop_app/css/base.css' %}?v=2.0" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'workshop_app/css/base.css' %}?v=5.0" type="text/css"/>
     <link rel="stylesheet" href="{% static 'workshop_app/css/font-awesome.css' %}?v=2.0" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 
@@ -34,6 +34,23 @@
 </head>
 
 <body>
+    <!-- Global Animated Background Elements -->
+    <div class="global-bg">
+        <div class="bg-blobs">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+        <div class="moving-dots">
+            <div class="dot dot-1"></div>
+            <div class="dot dot-2"></div>
+            <div class="dot dot-3"></div>
+            <div class="dot dot-4"></div>
+            <div class="dot dot-5"></div>
+        </div>
+        <div class="flowing-ribbon"></div>
+    </div>
+
 {% block header %}
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid px-4">
