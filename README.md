@@ -43,6 +43,21 @@ Instructors are the subject matter experts responsible for delivering the worksh
 
 ---
 
+## 🔐 Test Credentials
+
+For development and evaluation purposes, use the following accounts to test role-specific functionalities:
+
+| Role | Username | Password |
+| :--- | :--- | :--- |
+| **Administrator** | `admin` | `fossee123` |
+| **Coordinator** | `coordinator` | `fossee123` |
+| **Instructor** | `instructor` | `fossee123` |
+
+> [!NOTE]
+> All passwords are set to `fossee123` for consistency across test roles.
+
+---
+
 ## 🎨 Design & Development Insights
 
 ### 1. What design principles guided your improvements?
