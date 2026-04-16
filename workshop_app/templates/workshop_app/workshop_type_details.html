@@ -1,32 +1,41 @@
 {% extends 'workshop_app/base.html' %}
 
 {% block title %}
-    View Workshop details
+    Workshop Details
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h2 class="text-center m-3">Workshop Details</h2>
-        <table class="table table-hover">
-            <tr class="d-flex">
-                <th class="col-3">Workshop Name :</th>
-                <td class="col">{{ workshop_type.name }}</td>
-            </tr>
-            <tr class="d-flex">
-                <th class="col-3">Duration :</th>
-                <td class="col">{{ workshop_type.duration }} day(s)</td>
-            </tr>
-            <tr class="d-flex">
-                <th class="col-3">Description :</th>
-                <td class="col">{{ workshop_type.description }}</td>
-            </tr>
-            <tr class="d-flex">
-                <th class="col-3">Terms and Conditions :</th>
-                <td class="col">{{ workshop_type.terms_and_conditions }}</td>
-            </tr>
-        </table>
+    <div class="container app-container">
+        <div class="glass-panel mx-auto" style="max-width: 900px;">
+            <h2 class="text-center mb-5 gradient-text" style="font-size: 2.8rem; letter-spacing: -0.04em;">Workshop Details</h2>
+            
+            <div class="table-responsive">
+                <table class="table-glass">
+                    <tr>
+                        <th style="width: 30%; color: var(--accent-blue); font-weight: 700;">Workshop Name</th>
+                        <td style="color: white; font-weight: 500;">{{ workshop_type.name }}</td>
+                    </tr>
+                    <tr>
+                        <th style="color: var(--accent-blue); font-weight: 700;">Duration</th>
+                        <td style="color: white; font-weight: 500;">{{ workshop_type.duration }} day(s)</td>
+                    </tr>
+                    <tr>
+                        <th style="color: var(--accent-blue); font-weight: 700;">Description</th>
+                        <td style="color: rgba(255,255,255,0.9); line-height: 1.6;">{{ workshop_type.description }}</td>
+                    </tr>
+                    <tr>
+                        <th style="color: var(--accent-blue); font-weight: 700;">Terms and Conditions</th>
+                        <td style="color: rgba(255,255,255,0.9); line-height: 1.6;">{{ workshop_type.terms_and_conditions }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="{% url 'workshop_app:workshop_type_list' %}" class="btn-pill" style="padding: 12px 50px;">
+                    <span class="material-icons v-align-middle mr-2" style="font-size: 20px;">arrow_back</span>
+                    Back to List
+                </a>
+            </div>
+        </div>
     </div>
-
 {% endblock %}
-
-

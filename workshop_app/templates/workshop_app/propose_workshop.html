@@ -58,45 +58,52 @@
     }
     </style>
 
-    <div class="container app-container" align="center">
-        <div class="alert alert-info glass-panel" style="background-color: rgba(116, 69, 251, 0.15); border-left: 4px solid var(--primary-color); padding: 16px; border-radius: 18px; color: #d4c5f9;">
-            Note: Before proposing the workshop, please check about the workshop in the
-            <strong>Workshop Types</strong> section
+    <div class="container app-container">
+        <div class="glass-panel text-center mb-5" style="border-left: 4px solid var(--accent-blue); background: rgba(56, 189, 248, 0.05); padding: 20px;">
+            <p class="mb-0" style="color: var(--text-color); font-size: 1rem; opacity: 0.9;">
+                <span class="material-icons v-align-middle mr-2" style="color: var(--accent-blue); font-size: 20px;">info</span>
+                Note: Before proposing the workshop, please check the workshop details in the 
+                <a href="{% url 'workshop_app:workshop_type_list' %}" class="font-weight-bold" style="color: var(--accent-blue); text-decoration: underline;">Workshop Types</a> section.
+            </p>
         </div>
-        <br><br>
-        <div class="col-md-6 col-md-offset-6">
-            <div class="auth-card" style="margin-top: 20px;">
-                <h3 class="text-center mb-4" style="color: white; font-weight: 800;">Propose Workshop</h3>
-                <div class="card-body">
-                    <div class="form-group">
-                        <form method="post">
-                            {% csrf_token %}
-                            <br/>
-                            <div class="form-group">
-                                {{ form.workshop_type }}
-                            </div>
-                            <div class="form-group">
-                                {{ form.date }}
-                            </div>
-                            <div style="color: white; margin-bottom: 20px;">
-                                {{ form.tnc_accepted }} I accept the
-                                <a href="#" id="disp_tnc" data-toggle="modal"
-                                data-target="#exampleModalCenter" style="color: var(--primary-light);">
-                                    terms and conditions
-                                </a>
-                            </div>
-                            {% if form.errors %}
-                                <div class="alert alert-danger text-left">
-                                    <h5 style="color: #fca5a5; font-weight: bolder">Errors</h5>
-                                    {{ form.errors }}
-                                </div>
-                            {% endif %}
-                            <br>
-                            <button class="btn btn-auth" type="submit">Submit</button>
-                        </form>
-                    </div>
+
+        <div class="auth-card mx-auto" style="max-width: 600px;">
+            <h2 class="text-center mb-5 gradient-text" style="font-size: 2.8rem; letter-spacing: -0.04em;">Propose Workshop</h2>
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label>Workshop Type</label>
+                    {{ form.workshop_type }}
+                    <div class="text-danger small mt-1">{{ form.workshop_type.errors }}</div>
                 </div>
-            </div>
+
+                <div class="form-group">
+                    <label>Preferred Workshop Date</label>
+                    {{ form.date }}
+                    <div class="text-danger small mt-1">{{ form.date.errors }}</div>
+                </div>
+
+                <div class="form-group d-flex align-items-center mb-5">
+                    <div class="custom-control custom-checkbox mr-2">
+                        {{ form.tnc_accepted }}
+                    </div>
+                    <span style="color: rgba(255,255,255,0.8); font-size: 0.95rem;">
+                        I accept the 
+                        <a href="#" id="disp_tnc" data-toggle="modal" data-target="#exampleModalCenter" style="color: var(--accent-blue); font-weight: 600;">terms and conditions</a>
+                    </span>
+                </div>
+
+                {% if form.errors %}
+                    <div class="alert alert-danger glass-panel mb-4" style="background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2);">
+                        <h6 class="text-danger font-weight-bold mb-2">Please correct the following:</h6>
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <button class="btn btn-auth mt-2" type="submit">Submit Proposal</button>
+            </form>
+        </div>
         </div>
         <br>
 

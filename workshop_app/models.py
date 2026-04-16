@@ -168,7 +168,7 @@ class WorkshopManager(models.Manager):
             grouped_data = df.value_counts().to_dict()
             for state, count in grouped_data.items():
                 state_name = state[0]
-                data_states.append(states_map[state_name])
+                data_states.append(states_map.get(state_name, state_name))
                 data_counts.append(count)
         return data_states, data_counts
 
