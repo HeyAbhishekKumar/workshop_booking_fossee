@@ -6,6 +6,9 @@ A premium, high-fidelity modernization of the FOSSEE Workshop Booking system, fe
 
 The FOSSEE Workshop Booking Portal has been transformed from a legacy interface into a state-of-the-art web application. The design focuses on "Liquid Glass" aesthetics, vibrant gradients, and a mobile-first responsive architecture.
 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/531cbb3f-223c-4d19-8fc6-954673b350c6" />
+
+
 ---
 
 ## 👥 Role-Based Features
@@ -17,7 +20,9 @@ The Admin maintains the backbone of the system with full control over the worksh
 - **Global Oversight**: Access the comprehensive Django Administrative suit to manage users, groups, and permissions.
 - **System Statistics**: Monitor high-level portal analytics across all states and departments.
 
-*(Insert Admin Dashboard Screenshot Here)*
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/fc8cbed6-0454-436b-b4f9-38c54f4828b4" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/2b381dbc-1985-4fd3-9748-84e250959be6" />
+
 
 ---
 
@@ -28,7 +33,12 @@ Coordinators are the primary organizers who bridge the gap between institutes an
 - **Profile Management**: Maintain professional credentials and institute details through a grid-based profile editor.
 - **Data Analytics**: View public statistics to identify active regions and popular workshop types.
 
-*(Insert Coordinator Dashboard Screenshot Here)*
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b46fc4d8-1b27-4f0f-bcfa-6a7323193d71" />
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b3f336a7-3642-4316-9f25-6f8658c3d32e" />
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/c25a7919-4a4f-472b-9349-e3c4622b57ed" />
+
 
 ---
 
@@ -39,7 +49,10 @@ Instructors are the subject matter experts responsible for delivering the worksh
 - **Self-Service Profile**: Rapidly update security settings and personal information.
 - **Unified Analytics**: Participate in the system-wide visual analytics to track historical delivery.
 
-*(Insert Instructor Dashboard Screenshot Here)*
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/02fcda45-44e1-4695-8de0-9bcbd918e99a" />
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0b32f749-40fa-4d69-bd19-d2b47c1c95a6" />
+
 
 ---
 
@@ -88,13 +101,16 @@ The most challenging part was **Legacy Form Refactoring**. The original portal u
 ### Before vs After
 
 #### Login Page
-*(Insert Before Screenshot)* -> *(Insert After Screenshot)*
+*(Insert Before Screenshot)* -> <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/5c973729-6ee6-4abd-a093-c5d9f33e5b8b" />
+
 
 #### Workshop Statistics
-*(Insert Before Screenshot)* -> *(Insert After Screenshot)*
+*(Insert Before Screenshot)* -> <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d5c67d33-6d38-4eb1-ba6c-098f95e83d0d" />
+
 
 #### Propose Workshop (Calendar & Choice Bar)
-*(Insert Before Screenshot)* -> *(Insert After Screenshot)*
+*(Insert Before Screenshot)* -> ![Uploading image.png…]()
+
 
 ---
 
